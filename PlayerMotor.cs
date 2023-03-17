@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
+using System.Linq;
 using UnityEngine;
 
-public class PlayerMotor : MonoBehaviour
+public class PlayerController2D : MonoBehaviour
 {
     [Header("References")]
     public Rigidbody2D rb;
-    public PlayerFeatures playerFeatures;
 
     [Header("Horizontal Movement")]
     public float moveSpeed = 10f;   //.95f
@@ -47,7 +48,7 @@ public class PlayerMotor : MonoBehaviour
     [Header("Damping")]
     //float horizontalDaming = 0.22f;
     public float horizontalDampingBasic;        //.4f
-    private float actucalDamping;               
+    private float actucalDamping;
     public float horizontalDamingWhenStopping;  //.55f
     public float horizontalDamingWhenTurning;   //.9f
     public float invokeDamping = 1f;            //0f
@@ -68,8 +69,7 @@ public class PlayerMotor : MonoBehaviour
     public float dashingCooldown = 1f;      //.6f
     [SerializeField] private TrailRenderer tr;
 
-    PlayerAnimator playerAnimator;
-
+    //PlayerAnimator playerAnimator;
     private void Start()
     {
         //Settings for damping
@@ -77,13 +77,13 @@ public class PlayerMotor : MonoBehaviour
         defaultMoveSpeed = moveSpeed;
         defaulJumpForce = normalJumpFroce;
 
-        playerAnimator = GetComponent<PlayerAnimator>();
+        //playerAnimator = GetComponent<PlayerAnimator>();
     }
 
     private void Update()
     {
-        if(!canDoubleJump)
-           doubleJump = false;
+        if (!canDoubleJump)
+            doubleJump = false;
 
         //If is dashing, do not move or Jump etc...
         if (isDashing)
@@ -96,7 +96,7 @@ public class PlayerMotor : MonoBehaviour
             fJumpPressedRemember = fJumpPressPememberTime;
         }
 
-        if(isGrounded && !Input.GetButton("Jump"))
+        if (isGrounded && !Input.GetButton("Jump"))
         {
             doubleJump = false;
         }
@@ -110,7 +110,7 @@ public class PlayerMotor : MonoBehaviour
             doubleJump = true;
         }
         //IS able to double jump from wall
-        if(doubleJump && (fJumpPressedRemember > 0))
+        if (doubleJump && (fJumpPressedRemember > 0))
         {
             fJumpPressedRemember = 0;
             SecondJump();
@@ -120,14 +120,15 @@ public class PlayerMotor : MonoBehaviour
 
         //Disable double jump if is Wallsliding/jumping
         //if (isWallSliding && doubleJump)
-            //doubleJump = false;
+        //doubleJump = false;
 
 
         //Add Falling speed
         if (rb.velocity.y < 0)
         {
             rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
-        }else if(rb.velocity.y > 0 && !Input.GetButton("Jump"))
+        }
+        else if (rb.velocity.y > 0 && !Input.GetButton("Jump"))
         {
             rb.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
         }
