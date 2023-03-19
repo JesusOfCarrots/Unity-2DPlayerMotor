@@ -25,8 +25,6 @@ public class PlayerController2D : MonoBehaviour
     public float groundRadius = .2f;    //.4f
     bool isGrounded = false;
 
-    //public float fCutJumpHeight = 0.5f;
-
     [Header("Wall Jump")]
     public float wallJumpTime = .2f;
     public float wallSlideSpeed = .3f;  //.4f
@@ -47,7 +45,6 @@ public class PlayerController2D : MonoBehaviour
     public bool isFalling;
 
     [Header("Damping")]
-    //float horizontalDaming = 0.22f;
     public float horizontalDampingBasic;        //.4f
     private float actucalDamping;
     public float horizontalDamingWhenStopping;  //.55f
@@ -70,7 +67,6 @@ public class PlayerController2D : MonoBehaviour
     public float dashingCooldown = 1f;      //.6f
     [SerializeField] private TrailRenderer tr;
 
-    //PlayerAnimator playerAnimator;
     private void Start()
     {
         //Settings for damping
@@ -78,7 +74,6 @@ public class PlayerController2D : MonoBehaviour
         defaultMoveSpeed = moveSpeed;
         defaulJumpForce = normalJumpFroce;
 
-        //playerAnimator = GetComponent<PlayerAnimator>();
     }
 
     private void Update()
@@ -86,14 +81,13 @@ public class PlayerController2D : MonoBehaviour
         if (!canDoubleJump)
             doubleJump = false;
 
-        //If is dashing, do not move or Jump etc...
+        //If is dashing, do not move or Jump...
         if (isDashing)
             return;
 
         fJumpPressedRemember -= Time.deltaTime;
         if (Input.GetButtonDown("Jump"))
         {
-
             fJumpPressedRemember = fJumpPressPememberTime;
         }
 
@@ -110,7 +104,7 @@ public class PlayerController2D : MonoBehaviour
             Jump();
             doubleJump = true;
         }
-        //IS able to double jump from wall
+        //double jump from wall
         if (doubleJump && (fJumpPressedRemember > 0))
         {
             fJumpPressedRemember = 0;
@@ -118,13 +112,7 @@ public class PlayerController2D : MonoBehaviour
             doubleJump = false; //!doubleJump
         }
 
-
-        //Disable double jump if is Wallsliding/jumping
-        //if (isWallSliding && doubleJump)
-        //doubleJump = false;
-
-
-        //Add Falling speed
+        //Add speed when falling
         if (rb.velocity.y < 0)
         {
             rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
@@ -133,7 +121,6 @@ public class PlayerController2D : MonoBehaviour
         {
             rb.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
         }
-
 
         //Dashing
         if (Input.GetButtonDown("Fire3") && canDash)
@@ -144,13 +131,13 @@ public class PlayerController2D : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //If dashing stop all movement
         if (isDashing)
             return;
 
 
         float mx = rb.velocity.x;
         mx += Input.GetAxisRaw("Horizontal");
-        //Debug.Log(mx);
 
         //Animate player movement
         //animator.SetFloat("Speed", Mathf.Abs(mx));
@@ -164,8 +151,7 @@ public class PlayerController2D : MonoBehaviour
 
         rb.velocity = new Vector2(mx, rb.velocity.y);
 
-
-
+        //Facing right/left
         if (mx < 0f) //right == -1f
         {
             isFacingRight = false;
@@ -206,7 +192,6 @@ public class PlayerController2D : MonoBehaviour
         if (wallCheckHit && !isGrounded && mx != 0)
         {
             isWallSliding = true;
-            //canDash = false;
             //jumpTime = Time.time + wallJumpTime;
         }
         else
@@ -221,7 +206,6 @@ public class PlayerController2D : MonoBehaviour
         {
             horizontalDampingBasic = 0.0f;
             rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -wallSlideSpeed, float.MaxValue));
-            //canDash = false;
         }
         else if (!isWallSliding)
         {
@@ -235,7 +219,6 @@ public class PlayerController2D : MonoBehaviour
 
         //animator.SetBool("isJumping", true);
         canJump = false;
-        //jumpKey = KeyCode.None;
         Invoke("UpdateJumping", timeToWait);
     }
 
@@ -251,6 +234,7 @@ public class PlayerController2D : MonoBehaviour
         //animator.SetBool("isJumping", false);
         canJump = true;
     }
+    
     void Damping()
     {
         if (!isWallSliding)
