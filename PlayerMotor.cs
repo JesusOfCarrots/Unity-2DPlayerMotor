@@ -21,6 +21,7 @@ public class PlayerController2D : MonoBehaviour
     [Header("Grounded")]
     public Transform groundCheckPoint;
     public LayerMask whatIsGround;
+    [Range(0f, 1f)]
     public float groundRadius = .2f;    //.4f
     bool isGrounded = false;
 
