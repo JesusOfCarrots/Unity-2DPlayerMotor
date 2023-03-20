@@ -15,8 +15,8 @@ public class PlayerController2D : MonoBehaviour
 
     [Header("Vertical Movement")]
     public float normalJumpFroce = 10f; //11
-    private float defaulJumpForce;
     public bool canJump = true;
+    private float defaulJumpForce;
 
     [Header("Grounded")]
     [SerializeField] private Transform groundCheckPoint;
