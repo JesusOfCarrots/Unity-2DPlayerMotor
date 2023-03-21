@@ -1,1 +1,13 @@
-Starter Settings for the Script
+Starter Settings
+
+Rigidbody2D:
+    - Body Type:            Dynamic
+    - Material:             Physics2DMaterial
+    - Gravity Scale:        2
+    - Collision Detection:  Continous
+    - Sleeping Mode:        Never Sleep
+    - Interpolate:          Interpolate
+    - Constrains:           Freeze Z
+
+BoxCollider2D:
+    - 
