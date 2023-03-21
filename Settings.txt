@@ -9,5 +9,19 @@ Rigidbody2D:
     - Interpolate:          Interpolate
     - Constrains:           Freeze Z
 
-BoxCollider2D:
-    - 
+PlayerMotor:
+    - Ground Radius:        0.4
+    - Wall  Jump Time:      0.2
+    - Wall Slide Speed:     0.4
+    - Wall Distance:        0.52
+    - X Force:              5
+    - Fall Multiplier:      3.6
+    - Low Jump Multiplier:  3
+    - Time To Wait:         0.5
+    - Horiz. Damp. basic:   0.4
+    - Horiz. Damp. Stop:    0.55
+    - Horiz. Demp. Turn:    0.9
+    - Invoke Damping:       0
+    - Dashing Power:        24
+    - Dashing Time:         0.2
+    - Dashing Cooldown:     0.6
