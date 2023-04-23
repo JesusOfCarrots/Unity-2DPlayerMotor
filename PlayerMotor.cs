@@ -16,7 +16,7 @@ public class PlayerController2D : MonoBehaviour
     [Header("Vertical Movement")]
     public float normalJumpFroce = 10f; //11
     public bool canJump = true;
-    private float defaulJumpForce;
+    private float defaultJumpForce;
 
     [Header("Grounded")]
     [SerializeField] private Transform groundCheckPoint;
@@ -29,7 +29,6 @@ public class PlayerController2D : MonoBehaviour
     [SerializeField] private float wallJumpTime = .2f;
     [SerializeField] private float wallSlideSpeed = .3f;  //.4f
     [SerializeField] private float wallDistance = .5f;    //.53f
-    [SerializeField] private float xForce = 5f;
     public bool isWallSliding = false;
     RaycastHit2D wallCheckHit;
     float jumpTime;
@@ -72,7 +71,7 @@ public class PlayerController2D : MonoBehaviour
         //Settings for damping
         actucalDamping = horizontalDampingBasic;
         defaultMoveSpeed = moveSpeed;
-        defaulJumpForce = normalJumpFroce;
+        defaultJumpForce = normalJumpFroce;
     }
 
     private void Update()
@@ -138,7 +137,7 @@ public class PlayerController2D : MonoBehaviour
 
 
         //Horizontal Movement
-        float mx = rb.velocity.x;
+        float mx = rb.velocity.x; //mx = movementX
         mx += Input.GetAxisRaw("Horizontal");
 
 
