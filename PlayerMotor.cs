@@ -32,6 +32,7 @@ public class PlayerController2D : MonoBehaviour
     public bool isWallSliding = false;
     RaycastHit2D wallCheckHit;
     float jumpTime;
+    float lastWallSlideTime;
 
     [Header("Jump")]
     public bool canDoubleJump = true;
@@ -97,12 +98,17 @@ public class PlayerController2D : MonoBehaviour
         }
 
         //Handle Jump
-        if (isGrounded && (fJumpPressedRemember > 0) || isWallSliding && (fJumpPressedRemember > 0) && canJump)
+        if (isGrounded && (fJumpPressedRemember > 0))
         {
             fJumpPressedRemember = 0;
             //fGroundedRemeber = 0;
             Jump();
             doubleJump = true;
+        }
+        else if(isWallSliding && (fJumpPressedRemember > 0) && canJump)
+        {
+            fJumpPressedRemember = 0;
+            Jump();
         }
         //double jump from wall
         if (doubleJump && (fJumpPressedRemember > 0))
@@ -110,6 +116,18 @@ public class PlayerController2D : MonoBehaviour
             fJumpPressedRemember = 0;
             SecondJump();
             doubleJump = false; //!doubleJump
+        }
+
+        //Allow to doubleJump if was WallSliding Recently
+        if(isWallSliding)
+        {
+            lastWallSlideTime = Time.time;
+        }
+
+        if(WasWallSlidingRecently())
+        {
+            Debug.Log("Was Wall Sliding");
+            doubleJump = true;
         }
 
         //Add speed when falling
@@ -260,6 +278,18 @@ public class PlayerController2D : MonoBehaviour
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
         //animator.SetBool("isDashing", false);
+    }
+
+    private bool WasWallSlidingRecently()
+    {
+        if(!isWallSliding & (Time.time - lastWallSlideTime) < 0.1f)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     private void OnDrawGizmos()
