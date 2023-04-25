@@ -79,7 +79,6 @@ public class PlayerController2D : MonoBehaviour
     {
         if (!canDoubleJump)
             doubleJump = false;
-
        
         //If is dashing, do not move, Jump, dash...
         if (isDashing)
