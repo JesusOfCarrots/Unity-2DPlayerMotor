@@ -35,10 +35,10 @@ public class PlayerController2D : MonoBehaviour
     float lastWallSlideTime;
 
     [Header("Jump")]
-    public bool canDoubleJump = true;
+    public bool canDoubleJump = true;   // Enable/disable doubleJump feature
     public float fallMultiplier = 2.5f; //3.6
     public float lowJumpMultiplier = 2f;    //3
-    public bool doubleJump;
+    [SerializeField] private bool doubleJump;
     public float timeToWait = .5f;
 
     [Header("Is Falling")]
