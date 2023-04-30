@@ -22,7 +22,7 @@ Once you are finsihed playing a bit with the values in the Controler script you 
 
 <br />
 
-**If you are intresed in more details on the code you might want to check out the [CodeInfo.txt](CodeInfo.txt) file.**
+**If you are intresed in more details on the code you might want to check out the [CodeInfo.md](CodeInfo.md) file.**
 
 Asign everything correctly and you`ll be good to go :)
 
