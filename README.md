@@ -20,6 +20,10 @@ To your Player GameObject add the Following Components with changes shown in the
 Once you are finsihed playing a bit with the values in the Controler script you should have something that looks like that: <br />
 ![alt text](settings_for_script.png)
 
+<br />
+
+**If you are intresed in more details on the code you might want to check out the [CodeInfo.txt](CodeInfo.txt) file.**
+
 Asign everything correctly and you`ll be good to go :)
 
 
