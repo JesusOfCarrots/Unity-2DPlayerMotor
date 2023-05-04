@@ -28,4 +28,4 @@ Once you are finsihed playing a bit with the values in the Controler script you 
 Asign everything correctly and you`ll be good to go :)
 
 
-**As im still working on this pice of code there will be updates/news so you might want to check this Github page from time to timne in order to be uptodate with your code. <br /> Fell free to use this code in your project (but giving credit is always nice). I hope you have fun with this PlayerController**
+**As im still working on this pice of code there will be updates/news so you might want to check this Github page from time to time in order to be uptodate with your code. <br /> Fell free to use this code in your project (but giving credit is always nice). I hope you have fun with this PlayerController**
