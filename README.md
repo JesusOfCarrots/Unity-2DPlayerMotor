@@ -18,7 +18,7 @@ To your Player GameObject add the following components with changes shown in the
 - Empty gameObject placed at the players feet
 <br />
 
-Once you are finsihed playing a bit with the values in the Controler script you should have something that looks like that: <br /> (Note that you need to asing the Empty to the "Ground Check Point") <br />
+Once you are finsihed playing a bit with the values in the Controler script you should have something that looks like that: <br /> (Note that you need to asing the Empty to the "Ground Check Point" and select the Layer your Ground Plane is on) <br />
 ![alt text](settings_for_script.png)
 
 <br />
