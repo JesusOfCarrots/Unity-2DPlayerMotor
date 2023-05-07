@@ -1,31 +1,53 @@
-# Unity-2DPlayerMotor
-PlayerMontir script for 2D player Character in Unity
+﻿# Unity-2DPlayerMotor.cs
 
-A current project to make the best possible 2D CharacterController in Unity. <br />
-My main gaol is to make it user friendly and highly adjustable for different use cases. <br />
-And also to write clean code.
+Welcome to my Controller Script! 
+This project provides a simple and customizable character controller for 2D games.
+Whether you're making a platformer, action-adventure game, or any other type of 2D game, this controller can help you get started quickly.
 
----
-# Getting Started
-In order to get started you need to make a new Unity Project. Once it lauched you`ll create a new Player Object this can be a simple square or a Sprite (depending on what you want). At this point I like to give this object the "Player" Tag, however this is not necessary. <br /> Then you want to create a new Ground Plane (for me this is also just a sqaure). Now asign a BoxCollider2D to this object and add a layer named "Ground".<br /> 
-The next thing to do would be to download or copy the code you can find as "PlayerMotor". <br />
-To your Player GameObject add the following components with changes shown in the [Settings.txt](Settings.txt) file. <br />
+The character controller is designed to be easy to use and modify to fit your game's needs. 
+Here is a simple list of its core features:
 
-- Rigidbody2D
-- BoxCollider2D
-- (TrailRenderer)
-- PlayerMotor c# script
-- Empty gameObject placed at the players feet
-<br />
+ - Horizontal Movement
+ - (double) Jumping 
+ - Jump buffer time (coyote time)
+ - Wall sliding/Jumping
+ - Dashing
+ - Ground detection
+ - Acceleration
 
-Once you are finsihed playing a bit with the values in the Controler script you should have something that looks like that: <br /> (Note that you need to asing the Empty to the "Ground Check Point" and select the Layer your Ground Plane is on) <br />
-![alt text](settings_for_script.png)
+To get started, simply clone or download the Code [Found here](PlayerMotor.cs) Then, add the controller script to your player character object and customize the settings to fit your game's requirements. The Standard Settings (My Personal Preference [Can be found here](Settings.txt)). 
+(**Note**:  a quick simplification of what the different variables do, can be found [here](CodeInfo.md))
 
-<br />
+Once you are finished experimenting with the values, you should have something looking like this:
+![img](settings_for_script.png)
 
-**If you are intresed in more details on the code you might want to check out the [CodeInfo.md](CodeInfo.md) file.**
-
-Asign everything correctly and you`ll be good to go :)
+I hope you find this character controller useful in your game development journey. 
+Happy coding!
 
 
-**As im still working on this pice of code there will be updates/news so you might want to check this Github page from time to time in order to be uptodate with your code. <br /> Fell free to use this code in your project (but giving credit is always nice). I hope you have fun with this PlayerController**
+# Quick Start
+
+ 1. Add the Script to your Player Character 
+ 2. Following Components are essential in order to use the Script properly:
+ - RigidBody2D
+ - BoxCollider2D
+ - Empty GameObject placed at the players feet (The 'GroundCheckPoint')
+ 
+ 3. These Contents are Optional:
+ - TrailRenderer 
+
+4. To your Ground Plane in the Scene add a new Layer "Ground" (or something like that)
+5. Select the Ground layer at the 'What Is Ground' menu and select the 'Ground Check Point'
+6. Adjust the 'Ground Radius' if needed
+7. Have Fun!
+
+
+# Stay updated 
+
+As Im still working at this Piece of code you might want to check this GitHub Page to always be up-to-date. 
+
+# Donation
+
+If you like my Work and want to support me you can **Donate** me, I appreciate every penny.
+
+ 
