@@ -1,4 +1,4 @@
-﻿# Unity-2DPlayerMotor.cs
+# Unity-2DPlayerMotor.cs
 
 Welcome to my Controller Script! 
 This project provides a simple and customizable character controller for 2D games.
