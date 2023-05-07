@@ -15,7 +15,7 @@ Here is a simple list of its core features:
  - Ground detection
  - Acceleration
 
-To get started, simply clone or download the Code [Found here](PlayerMotor.cs) Then, add the controller script to your player character object and customize the settings to fit your game's requirements. The Standard Settings (My Personal Preference [Can be found here](Settings.txt)). 
+To get started, simply clone or download the Code [Found here](PlayerMotor.cs) Then, add the controller script to your player character object and customize the settings to fit your game's requirements. The Standard Settings (My Personal Preference [Can be found here](Settings.txt)). <br />
 (**Note**:  a quick simplification of what the different variables do, can be found [here](CodeInfo.md))
 
 Once you are finished experimenting with the values, you should have something looking like this:
