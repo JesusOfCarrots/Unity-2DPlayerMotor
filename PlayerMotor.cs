@@ -41,9 +41,6 @@ public class PlayerController2D : MonoBehaviour
     [SerializeField] private bool doubleJump;
     public float timeToWait = .5f;
 
-    [Header("Is Falling")]
-    public bool isFalling;
-
     [Header("Damping")]
     [SerializeField] private float horizontalDampingBasic;        //.4f
     [SerializeField] private float horizontalDamingWhenStopping;  //.55f
@@ -53,7 +50,7 @@ public class PlayerController2D : MonoBehaviour
 
     //Jump buffer time
     float fJumpPressedRemember = 0;
-    float fJumpPressPememberTime = 0.2f;
+    float fJumpPressRememberTime = 0.2f;
     float fGroundedRemember = 0;
     float fGroundedRemeberTime = 0.2f;
 
@@ -88,7 +85,7 @@ public class PlayerController2D : MonoBehaviour
         fJumpPressedRemember -= Time.deltaTime;
         if (Input.GetButtonDown("Jump"))
         {
-            fJumpPressedRemember = fJumpPressPememberTime;
+            fJumpPressedRemember = fJumpPressRememberTime;
         }
 
         if (isGrounded && !Input.GetButton("Jump"))
@@ -167,8 +164,8 @@ public class PlayerController2D : MonoBehaviour
 
         rb.velocity = new Vector2(mx, rb.velocity.y);
         
-        //Animate player movement
-        //animator.SetFloat("Speed", Mathf.Abs(mx));
+        //Animate player movement e.g:
+            //animator.SetFloat("Speed", Mathf.Abs(mx));
 
         //Facing right/left
         if (mx < 0f) //right == -1f
@@ -212,7 +209,6 @@ public class PlayerController2D : MonoBehaviour
         if (wallCheckHit && !isGrounded && mx != 0)
         {
             isWallSliding = true;
-            //jumpTime = Time.time + wallJumpTime;
         }
         else
         {
