@@ -37,6 +37,7 @@ Happy coding!
  
  3. These Contents are Optional:
  - TrailRenderer 
+ - Animator 
 
 4. To your Ground Plane in the Scene add a new Layer "Ground" (or something like that)
 5. Select the Ground layer at the 'What Is Ground' menu and select the 'Ground Check Point'
