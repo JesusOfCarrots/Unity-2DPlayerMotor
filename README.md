@@ -52,5 +52,5 @@ As Im still working at this Piece of code you might want to check this GitHub Pa
 # Donation
 
 If you like my Work and want to support me you can **Donate** me, I appreciate every penny.
-
+<script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="jesusofcarrots" data-description="Support me on Buy me a coffee!" data-message="Thank you very much!" data-color="#FF813F" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
  
