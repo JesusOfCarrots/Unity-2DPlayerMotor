@@ -17,8 +17,7 @@ Here is a simple list of its core features:
 
 ***I also included example-code(as comments) to animate the Players movement but this is not final and not yet fully functional***
 
-To get started, simply clone or download the Code [Found here](PlayerMotor.cs) Then, add the controller script to your player character object and customize the settings to fit your game's requirements. The Standard Settings (My Personal Preference [Can be found here](Settings.txt)). <br />
-(**Note**:  a quick simplification of what the different variables do, can be found [here](CodeInfo.md))
+To get started, simply clone or download the Code [Found here](PlayerMotor.cs) .Then, add the controller script to your player character object and customize the settings to fit your game's requirements. The Standard Settings (My Personal Preference [Can be found here](Settings.txt)). <br />
 
 Once you are finished experimenting with the values, you should have something looking like this:
 ![img](settings_for_script.png)
