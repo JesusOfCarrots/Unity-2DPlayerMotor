@@ -52,3 +52,5 @@ As Im still working at this Piece of code you might want to check this GitHub Pa
 
 If you like my Work and want to support me you can **Donate** me, I appreciate every penny.
 
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/L3L3R7VCE)
+
