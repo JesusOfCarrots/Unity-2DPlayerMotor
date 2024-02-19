@@ -41,7 +41,12 @@ Happy coding!
 4. To your Ground Plane in the Scene add a new Layer "Ground" (or something like that)
 5. Select the Ground layer at the 'What Is Ground' menu and select the 'Ground Check Point'
 6. Adjust the 'Ground Radius' if needed
-7. Have Fun!
+7. Edit your Rigidbody 2D component:
+8. Graviry Scale = 2
+9. Collision Detection = Continuous
+10. Sleeping Mode = Never Sleep
+11. Interpolate = Interpolate
+12. Have Fun!
 
 
 # Stay updated 
