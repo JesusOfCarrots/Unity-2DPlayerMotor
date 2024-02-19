@@ -46,7 +46,8 @@ Happy coding!
 9. Collision Detection = Continuous
 10. Sleeping Mode = Never Sleep
 11. Interpolate = Interpolate
-12. Have Fun!
+12. And also freeze the z rotation
+13. Have Fun! :)
 
 
 # Stay updated 
