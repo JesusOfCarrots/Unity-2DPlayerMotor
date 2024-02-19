@@ -70,6 +70,13 @@ public class PlayerController2D : MonoBehaviour
         actucalDamping = horizontalDampingBasic;
         defaultMoveSpeed = moveSpeed;
         defaultJumpForce = normalJumpFroce;
+        
+        if (rb == null)
+        {
+            //Get Rigidbody on Player Object
+            rb = GetComponent<Rigidbody2D>();
+            Debug.Log("Rigidbody was automatically assigned.");
+        }
     }
 
     private void Update()
