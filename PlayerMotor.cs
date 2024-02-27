@@ -8,11 +8,11 @@ using UnityEngine.Animations;
 
 public class PlayerController : MonoBehaviour
 {
-    [Header("References")]
+   [Header("References")]
     public Rigidbody2D rb;
 
     [Header("Horizontal Movement")]
-    public float moveSpeed = 10f;   //.95f
+    public float moveSpeed = 1f;   //.95f
     private float defaultMoveSpeed;
     private bool isMoving;
 
@@ -38,11 +38,11 @@ public class PlayerController : MonoBehaviour
     float lastWallSlideTime;
 
     [Header("Jump")]
-    public bool canDoubleJump = true;   // Enable/disable doubleJump feature
-    public float fallMultiplier = 2.5f; //3.6
-    public float lowJumpMultiplier = 2f;    //3
+    [SerializeField] private bool canDoubleJump = true;   // Enable/disable doubleJump feature
+    [SerializeField] private float fallMultiplier = 2.5f; //3.6
+    [SerializeField] private float lowJumpMultiplier = 2f;    //3
     [SerializeField] private bool doubleJump;
-    public float timeToWait = .5f;
+    [SerializeField] private float timeToWait = .5f;
 
     [Header("Damping")]
     [SerializeField] private float horizontalDampingBasic;        //.4f
@@ -60,11 +60,11 @@ public class PlayerController : MonoBehaviour
     public bool isFacingRight = true;
 
     [Header("Dash")]
-    public bool canDash = true;
+    [SerializeField] private bool canDash = true;
     private bool isDashing;
-    public float dashingPower = 24f;
-    public float dashingTime = .2f;
-    public float dashingCooldown = 1f;      //.6f
+    [SerializeField] private float dashingPower = 24f;
+    [SerializeField] private float dashingTime = .2f;
+    [SerializeField] private float dashingCooldown = 1f;      //.6f
     [SerializeField] private TrailRenderer tr;
 
 
@@ -74,6 +74,7 @@ public class PlayerController : MonoBehaviour
 
     private int currentState;
     private bool isStateLocked = false;
+    // Name of the animation clips
     private static readonly int Idle = Animator.StringToHash("Idle");
     private static readonly int Run = Animator.StringToHash("Run");
     private static readonly int anim_Jump = Animator.StringToHash("Jump");
@@ -178,9 +179,8 @@ public class PlayerController : MonoBehaviour
             return;
 
         //Horizontal Movement
-        float mx = rb.velocity.x; //mx = movementX
+        float mx = rb.velocity.x;
         mx += Input.GetAxisRaw("Horizontal");
-
 
         if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) < 0.01f)
             mx *= Mathf.Pow(1f - horizontalDamingWhenStopping, Time.deltaTime * 10f);
@@ -191,6 +191,7 @@ public class PlayerController : MonoBehaviour
 
         rb.velocity = new Vector2(mx, rb.velocity.y);
 
+        // Checking when moving (bool isMoving)
         if(Mathf.Abs(mx) > 0.01f)
             isMoving = true;
 
@@ -267,14 +268,13 @@ public class PlayerController : MonoBehaviour
 
     void SecondJump()
     {
+        // TODO: C
         rb.velocity = new Vector2(rb.velocity.x, normalJumpFroce);
-
-        //animator.SetBool("isJumping", true);
     }
 
     void UpdateJumping()
     {
-        //animator.SetBool("isJumping", false);
+        // TODO: C
         canJump = true;
     }
 
@@ -288,7 +288,6 @@ public class PlayerController : MonoBehaviour
     {
         canDash = false;
         isDashing = true;
-        //animator.SetBool("isDashing", true);
         float originalGravity = rb.gravityScale;
         rb.gravityScale = 0f;
         rb.velocity = new Vector2(transform.localScale.x * dashingPower, 0f);
@@ -299,9 +298,10 @@ public class PlayerController : MonoBehaviour
         isDashing = false;
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
-        //animator.SetBool("isDashing", false);
     }
 
+    // As the dashing animation this current version uses the Fall animation
+    // Just because I like. You can change it at any time by adding a hash and checking for if isDashing
     private int GetState()
     {
         if (Time.time < lockedTill) return currentState;
@@ -324,6 +324,7 @@ public class PlayerController : MonoBehaviour
 
         return highestPriotityState;
     }
+    // Lock animation for a fraction of a second
     private int LockState(int s, float t)
     {
         lockedTill = Time.time + t;
