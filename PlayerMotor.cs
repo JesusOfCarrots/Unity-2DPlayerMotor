@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
-using System.Linq;
+using Unity.VisualScripting.FullSerializer;
+using UnityEditor.Experimental.GraphView;
+using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.Animations;
 
-public class PlayerController2D : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     [Header("References")]
     public Rigidbody2D rb;
@@ -12,6 +14,7 @@ public class PlayerController2D : MonoBehaviour
     [Header("Horizontal Movement")]
     public float moveSpeed = 10f;   //.95f
     private float defaultMoveSpeed;
+    private bool isMoving;
 
     [Header("Vertical Movement")]
     public float normalJumpFroce = 10f; //11
@@ -64,13 +67,28 @@ public class PlayerController2D : MonoBehaviour
     public float dashingCooldown = 1f;      //.6f
     [SerializeField] private TrailRenderer tr;
 
+
+    [Header("Animations")]
+    private Animator anim;
+    private float lockedTill;
+
+    private int currentState;
+    private bool isStateLocked = false;
+    private static readonly int Idle = Animator.StringToHash("Idle");
+    private static readonly int Run = Animator.StringToHash("Run");
+    private static readonly int anim_Jump = Animator.StringToHash("Jump");
+    private static readonly int Fall = Animator.StringToHash("Fall");
+    private static readonly int wallSlide = Animator.StringToHash("WallSlide 0");
+
     private void Start()
     {
+        anim = GetComponent<Animator>();
+
         //Settings for damping
         actucalDamping = horizontalDampingBasic;
         defaultMoveSpeed = moveSpeed;
         defaultJumpForce = normalJumpFroce;
-        
+
         if (rb == null)
         {
             //Get Rigidbody on Player Object
@@ -81,9 +99,12 @@ public class PlayerController2D : MonoBehaviour
 
     private void Update()
     {
+        int state = GetState();
+        anim.CrossFade(state, 0, 0);
+
         if (!canDoubleJump)
             doubleJump = false;
-       
+
         //If is dashing, do not move, Jump, dash...
         if (isDashing)
             return;
@@ -108,7 +129,7 @@ public class PlayerController2D : MonoBehaviour
             Jump();
             doubleJump = true;
         }
-        else if(isWallSliding && (fJumpPressedRemember > 0) && canJump)
+        else if (isWallSliding && (fJumpPressedRemember > 0) && canJump)
         {
             fJumpPressedRemember = 0;
             Jump();
@@ -122,12 +143,12 @@ public class PlayerController2D : MonoBehaviour
         }
 
         //Allow to doubleJump if was WallSliding Recently
-        if(isWallSliding)
+        if (isWallSliding)
         {
             lastWallSlideTime = Time.time;
         }
 
-        if(WasWallSlidingRecently())
+        if (WasWallSlidingRecently())
         {
             Debug.Log("Was Wall Sliding");
             doubleJump = true;
@@ -156,7 +177,6 @@ public class PlayerController2D : MonoBehaviour
         if (isDashing)
             return;
 
-
         //Horizontal Movement
         float mx = rb.velocity.x; //mx = movementX
         mx += Input.GetAxisRaw("Horizontal");
@@ -170,9 +190,9 @@ public class PlayerController2D : MonoBehaviour
             mx *= Mathf.Pow(1f - horizontalDampingBasic, Time.deltaTime * 10f);
 
         rb.velocity = new Vector2(mx, rb.velocity.y);
-        
-        //Animate player movement e.g:
-            //animator.SetFloat("Speed", Mathf.Abs(mx));
+
+        if(Mathf.Abs(mx) > 0.01f)
+            isMoving = true;
 
         //Facing right/left
         if (mx < 0f) //right == -1f
@@ -227,6 +247,7 @@ public class PlayerController2D : MonoBehaviour
         //(is)WallSliding
         if (isWallSliding)
         {
+
             horizontalDampingBasic = 0.0f;
             rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -wallSlideSpeed, float.MaxValue));
         }
@@ -240,7 +261,6 @@ public class PlayerController2D : MonoBehaviour
     {
         rb.velocity = new Vector2(rb.velocity.x, normalJumpFroce);
 
-        //animator.SetBool("isJumping", true);
         canJump = false;
         Invoke("UpdateJumping", timeToWait);
     }
@@ -257,7 +277,7 @@ public class PlayerController2D : MonoBehaviour
         //animator.SetBool("isJumping", false);
         canJump = true;
     }
-    
+
     void Damping()
     {
         if (!isWallSliding)
@@ -282,9 +302,44 @@ public class PlayerController2D : MonoBehaviour
         //animator.SetBool("isDashing", false);
     }
 
+    private int GetState()
+    {
+        if (Time.time < lockedTill) return currentState;
+
+        int highestPriotityState = Idle;
+
+        if (isMoving && !isWallSliding)
+            highestPriotityState = LockState(Run, 0);
+        if (isWallSliding)
+            highestPriotityState = Input.GetButtonDown("Jump") == true ? LockState(anim_Jump, 0.23f) : wallSlide;
+        if (isGrounded)
+            highestPriotityState = Input.GetAxisRaw("Horizontal") == 0 ? Idle : Run;
+        if (!isGrounded && !isWallSliding)
+        {
+            if (rb.velocity.y > 0)
+                highestPriotityState = LockState(anim_Jump, 0.17f);
+            else
+                highestPriotityState = Fall;
+        }
+
+        return highestPriotityState;
+    }
+    private int LockState(int s, float t)
+    {
+        lockedTill = Time.time + t;
+        isStateLocked = true;
+        StartCoroutine(UnlockStateAfterDelay(t));
+        return s;
+    }
+    private IEnumerator UnlockStateAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        isStateLocked = false;
+    }
+
     private bool WasWallSlidingRecently()
     {
-        if(!isWallSliding & (Time.time - lastWallSlideTime) < 0.1f)
+        if (!isWallSliding & (Time.time - lastWallSlideTime) < 0.1f)
         {
             return true;
         }
