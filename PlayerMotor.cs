@@ -8,7 +8,7 @@ using UnityEngine.Animations;
 
 public class PlayerController : MonoBehaviour
 {
-   [Header("References")]
+    [Header("References")]
     public Rigidbody2D rb;
 
     [Header("Horizontal Movement")]
